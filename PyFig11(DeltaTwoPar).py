@@ -13,9 +13,9 @@ auto_directory = "/home/huitzil/auto/07p/python" #Update with your own AUTO dire
 sys.path.append(auto_directory)
 from pathlib import Path
 parentPath = str(Path(os.getcwd()).parent)
-sys.path.append(parentPath)
-latexPath = Path(os.getcwd()).parent/'Latex'
-from PyContFunctions import parChange
+# sys.path.append(parentPath)
+# latexPath = Path(os.getcwd()).parent/'Latex'
+# from PyContFunctions import parChange
 from auto import *
 from auto import run, load, save, merge, relabel, cl, klb
 from numpy import e, log, sqrt
@@ -164,7 +164,7 @@ eqH = run(
     DS=1e-2,
     DSMAX=1e-2,
     UZSTOP={'Vplc': 0.3},
-    PAR={'delta': 2.2}
+    PAR={'delta': 2}
 )
 cycleH = run(
     eqH('HB'), 
@@ -264,11 +264,18 @@ for i in [2,3]: #I only care about two particular labels
     if point.get('TY') not in ['UZ', 'EP']:
         ax.annotate(
             'HB',
-            [point['Vplc'],
+            [point['Vplc']+0.003,
             max(point['c'])*0.9],
             # 'C2',
             # marker='o', 
             # markersize=10,
+        )
+        ax.plot(
+            point['Vplc'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C2', 
+            markersize =5,
         )
 # Ax limits 
 xlim = [0,0.15]
@@ -364,11 +371,18 @@ for i in [2,3]: #I only care about two particular labels
     if point.get('TY') not in ['UZ', 'EP']:
         ax.annotate(
             'HB',
-            [point['Vplc'],
-            max(point['c'])*0.9],
+            [point['Vplc']+0.003,
+            max(point['c'])*0.87],
             # 'C2',
             # marker='o', 
             # markersize=10,
+        )
+        ax.plot(
+            point['Vplc'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C3', 
+            markersize =5,
         )
 # Ax limits 
 xlim = [0,0.15]

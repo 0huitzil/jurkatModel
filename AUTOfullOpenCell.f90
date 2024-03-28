@@ -160,7 +160,7 @@ SUBROUTINE STPNT(NDIM,U,PAR,T)
       ! # H 
       Kh=0.168
       Tmax=7.5
-      Kt=0.09
+      Kt=0.095
       ! #======================================
       ! # SERCA 
       Vs=2

@@ -12,9 +12,9 @@ import pandas as pd
 auto_directory = "/home/huitzil/auto/07p/python" #Update with your own AUTO directory
 sys.path.append(auto_directory)
 from pathlib import Path
-parentPath = str(Path(os.getcwd()).parent)
-sys.path.append(parentPath)
-latexPath = Path(os.getcwd()).parent/'Latex'
+# parentPath = str(Path(os.getcwd()).parent)
+# sys.path.append(parentPath)
+# latexPath = Path(os.getcwd()).parent/'Latex'
 
 from PyContFunctions import parChange
 from auto import *
@@ -83,17 +83,17 @@ ax.set_title('A', loc='left')
 Ax settings - High ER Phase plane
 """
 ax = fig.add_subplot(spec[0,1])
-ax.plot(dataL[1] + dataL[2]/par['gamma'], dataL[5], color = 'C2',)
-ax.plot(ce/par['gamma'], Jsoce, color = 'k',)
+ax.plot(dataL[2], dataL[5], color = 'C2',)
+ax.plot(ce, Jsoce, color = 'k',)
 # ax.plot(dataL[1] + dataL[2]/par['gamma'], getSOCE(dataL[1:], par), 'C1', label = 'SOCE \nsignal') 
 #Ax limits
-xlim = [130, 160]
+xlim = [730, 870]
 ylim = [0, 3]
 ax.set_xlim(xlim)
 ax.set_ylim([0, 3.2])
 ax.set_yticks(ylim)
 ax.set_xticks(xlim)
-ax.set_xlabel(r'$C_t$', labelpad=-10)
+ax.set_xlabel(r'$c_e$', labelpad=-10)
 ax.set_ylabel(r'$s$', labelpad=-10)
 ax.set_title('B', loc='left')
 # ax.legend()
@@ -118,16 +118,16 @@ ax.set_title('C', loc='left')
 Ax settings - High ER Phase plane
 """
 ax = fig.add_subplot(spec[1,1])
-ax.plot(dataH[1] + dataH[2]/par['gamma'], dataH[5], color = 'C2' )
-ax.plot(ce/par['gamma'], Jsoce, color = 'k', label = r'$J_\mathrm{SOCE}$')
+ax.plot(dataH[2], dataH[5], color = 'C2' )
+ax.plot(ce, Jsoce, color = 'k', label = r'$J_\mathrm{SOCE}$')
 #Ax limits
-xlim = [130, 160]
+xlim = [730, 870]
 ylim = [0, 3]
 ax.set_xlim(xlim)
 ax.set_ylim([0, 3.2])
 ax.set_yticks(ylim)
 ax.set_xticks(xlim)
-ax.set_xlabel(r'$C_t$', labelpad=-10)
+ax.set_xlabel(r'$c_e$', labelpad=-10)
 ax.set_ylabel(r'$s$', labelpad=-10)
 ax.set_title('D', loc='left')
 ax.legend()

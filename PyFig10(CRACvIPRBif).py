@@ -13,9 +13,9 @@ auto_directory = "/home/huitzil/auto/07p/python" #Update with your own AUTO dire
 sys.path.append(auto_directory)
 from pathlib import Path
 parentPath = str(Path(os.getcwd()).parent)
-sys.path.append(parentPath)
-latexPath = Path(os.getcwd()).parent/'Latex'
-from PyContFunctions import parChange
+# sys.path.append(parentPath)
+# latexPath = Path(os.getcwd()).parent/'Latex'
+# from PyContFunctions import parChange
 from auto import *
 from auto import run, load, save, merge, relabel, cl, klb
 from numpy import e, log, sqrt
@@ -71,7 +71,7 @@ eqH = run(
     DS=1e-2,
     DSMAX=1e-2,
     UZSTOP={'Vplc': 0.3},
-    PAR={'delta': 2.2}
+    PAR={'delta': 2}
 )
 cycleH = run(
     eqH('HB'), 
@@ -162,11 +162,18 @@ for i in [2,3]: #I only care about two particular labels
     if point.get('TY') not in ['UZ', 'EP']:
         ax.annotate(
             'HB',
-            [point['Vplc'],
-            max(point['c'])*0.9],
+            [point['Vplc']+0.001,
+            max(point['c'])*0.8],
             # 'C2',
             # marker='o', 
             # markersize=10,
+        )
+        ax.plot(
+            point['Vplc'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C2', 
+            markersize =5,
         )
 # Ax limits 
 xlim = [0,0.15]
@@ -183,13 +190,13 @@ ax.set_title('A', loc='left')
 Ax settings - Data Simulation - High delta
 """
 ax = fig.add_subplot(spec[0, 1])
-ax.plot(dataH[0], dataH[1], color = 'C2')
+ax.plot(dataH[0], dataH[1], color = 'C2', label = r'$c$')
 ax2 = ax.twinx()
-ax2.plot(dataH[0], dataH[2], color = 'C2', ls = 'dashed')
+ax2.plot(dataH[0], dataH[2], color = 'C2', ls = 'dashed', label = r'$c_e$')
 # Ax limits 
 xlim = [0, 120]
-ylim = [0.1, 0.2]
-y2lim = [780, 820]
+ylim = [0.1, 0.24]
+y2lim = [780, 830]
 ax.set_xticks(xlim)
 ax.set_yticks(ylim)
 ax2.set_yticks(y2lim)
@@ -198,6 +205,8 @@ ax.set_ylabel(r'$c$', rotation='vertical', labelpad=-15, ma='center')
 ax2.set_ylabel(r'$c_e$', rotation='vertical', labelpad=-15, ma='center')
 ax.set_xlabel(r'Time (seconds)', labelpad=-10)
 ax.set_title('B', loc='left')
+ax.legend(loc='upper left')
+ax2.legend(loc='upper right')
 """
 Ax settings Vplc Diag - Low delta
 """
@@ -237,11 +246,18 @@ for i in [2,3]: #I only care about two particular labels
     if point.get('TY') not in ['UZ', 'EP']:
         ax.annotate(
             'HB',
-            [point['Vplc'],
-            max(point['c'])*0.85],
+            [point['Vplc']+0.001,
+            max(point['c'])*1.1],
             # 'C2',
             # marker='o', 
             # markersize=10,
+        )
+        ax.plot(
+            point['Vplc'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C3', 
+            markersize =5,
         )
 # Ax limits 
 xlim = [0,0.15]
@@ -258,13 +274,13 @@ ax.set_title('C', loc='left')
 Ax settings Simulation - Narrow Spike - low delta
 """
 ax = fig.add_subplot(spec[1,1])
-ax.plot(dataN[0], dataN[1], color = 'red')
+ax.plot(dataN[0], dataN[1], color = 'red', label = r'$c$')
 ax2 = ax.twinx()
-ax2.plot(dataN[0], dataN[2], color = 'red', ls = 'dashed')
+ax2.plot(dataN[0], dataN[2], color = 'red', ls = 'dashed', label = r'$c_e$')
 # Ax limits 
 xlim = [0,20]
-ylim = [0.1, 0.2]
-y2lim = [780, 820]
+ylim = [0.1, 0.24]
+y2lim = [780, 830]
 # ax.set_xlim(xlim)
 # ax.set_ylim(ylim)
 ax.set_yticks(ylim)
@@ -275,8 +291,9 @@ ax.spines.right.set_visible(True)
 ax.set_ylabel(r'$c$', labelpad=-10)
 ax2.set_ylabel(r'$c_e$', labelpad=-10)
 ax.set_xlabel(r'Time (seconds)', labelpad=-10)
-
 ax.set_title('D', loc='left')
+ax.legend(loc='upper left')
+ax2.legend(loc='upper right')
 
 # fig.savefig(latexPath/'Fig10.pdf')
 fig.savefig('Figures/Fig10.pdf')

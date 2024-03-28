@@ -13,9 +13,9 @@ auto_directory = "/home/huitzil/auto/07p/python" #Update with your own AUTO dire
 sys.path.append(auto_directory)
 from pathlib import Path
 parentPath = str(Path(os.getcwd()).parent)
-sys.path.append(parentPath)
-latexPath = Path(os.getcwd()).parent/'Latex'
-from PyContFunctions import parChange
+# sys.path.append(parentPath)
+# latexPath = Path(os.getcwd()).parent/'Latex'
+# from PyContFunctions import parChange
 from auto import *
 from auto import run, load, save, merge, relabel, cl, klb
 from numpy import e, log, sqrt
@@ -61,7 +61,7 @@ cycleN = run(
     UZR={'Vplc': 0.1}
 )
 """
-Data Vplc Diag - Broad Spike
+Data Vplc Diag - Wide Spike
 """
 file = "AUTOfullClosedCell"
 model = load(file) 
@@ -103,7 +103,7 @@ cycleB = run(
 #     SP=['LP6', 'TR0', 'PD3'],
 #     )
 """
-Data Vplc Diag - Broad Spike w/Plateau
+Data Vplc Diag - Wide Spike w/Plateau
 """
 file = "AUTOfullClosedCell"
 model = load(file) 
@@ -154,7 +154,7 @@ dataN = getIVP(model, par, ics, tini=tini, tf=200)
 ics = getnewICS(dataN)
 dataN = getIVP(model, par, ics, tini=tini, tf=tf)
 """
-Data Simulation - Broad Spike w/ Plateau - 95
+Data Simulation - Wide Spike w/ Plateau - 95
 """
 par = parFullOpenCell()
 ics = icsFullClosedCell()
@@ -178,7 +178,7 @@ dataN95 = getIVP(model, par, ics, tini=tini, tf=200)
 ics = getnewICS(dataN95)
 dataN95 = getIVP(model, par, ics, tini=tini, tf=tf)
 """
-Data Simulation - Broad Spike - 75
+Data Simulation - Wide Spike - 75
 """
 par = parFullOpenCell()
 ics = icsFullClosedCell()
@@ -253,6 +253,13 @@ for i in [3,4]: #I only care about two particular labels
             # 'C2',
             # marker='o', 
             # markersize=10,
+        )
+        ax.plot(
+            point['Vplc'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C3', 
+            markersize = 4
         )
 
 # Ax limits 
@@ -337,7 +344,14 @@ for i in [3,4]: #I only care about two particular labels
     if point.get('TY') not in ['UZ', 'EP']:
         ax.annotate(
             'HB'+str(i-2),
-            [point['Vplc'],max(point['c']*0.8)],
+            [point['Vplc']+0.01,max(point['c']*0.8)],
+        )
+        ax.plot(
+            point['Vplc'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C3', 
+            markersize = 4
         )
 # LP points 
 j=2
@@ -346,7 +360,14 @@ for i in [6,10]: #I only care about two particular labels
     if point.get('TY') not in ['UZ', 'EP']:
         ax.annotate(
             'SNPO'+str(j),
-            [point['Vplc'],max(point['c'])*0.95],
+            [point['Vplc']+0.01,max(point['c'])*0.95],
+        )
+        ax.plot(
+            point['Vplc'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C3', 
+            markersize = 4
         )
         j=j-1
 # PD points 
@@ -356,7 +377,14 @@ for i in [7,8]: #I only care about two particular labels
     if point.get('TY') not in ['UZ', 'EP']:
         ax.annotate(
             'PD'+str(j),
-            [point['Vplc'],max(point['c'])],
+            [point['Vplc']+0.01,max(point['c'])],
+        )
+        ax.plot(
+            point['Vplc'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C3', 
+            markersize = 4
         )
         j=j-1
 # Ax limits 
@@ -438,7 +466,14 @@ for i in [3,4]: #I only care about two particular labels
     if point.get('TY') not in ['UZ', 'EP']:
         ax.annotate(
             'HB'+str(i-2),
-            [point['Vplc'],max(point['c']*0.7)],
+            [point['Vplc']+0.01,max(point['c']*0.8)],
+        )
+        ax.plot(
+            point['Vplc'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C3', 
+            markersize = 4
         )
 # LP points 
 j=2
@@ -447,7 +482,14 @@ for i in [6,10]: #I only care about two particular labels
     if point.get('TY') not in ['UZ', 'EP']:
         ax.annotate(
             'SNPO'+str(j),
-            [point['Vplc'],max(point['c']*0.9)],
+            [point['Vplc']+0.01,max(point['c']*0.9)],
+        )
+        ax.plot(
+            point['Vplc'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C3', 
+            markersize = 4
         )
         j=j-1
 # PD points 
@@ -457,7 +499,14 @@ for i in [7,9]: #I only care about two particular labels
     if point.get('TY') not in ['UZ', 'EP']:
         ax.annotate(
             'PD'+str(j),
-            [point['Vplc'],max(point['c'])],
+            [point['Vplc']+0.01,max(point['c'])],
+        )
+        ax.plot(
+            point['Vplc'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C3', 
+            markersize = 4
         )
         j=j-1
 # Ax limits 
@@ -476,9 +525,9 @@ ax.set_title('E \t'+ r'($C_t = 75$)', loc='left')
 Ax settings Simulation - Narrow Spike - Ct 140
 """
 ax = fig.add_subplot(spec[0:2,1])
-ax.plot(dataN[0], dataN[1], color = 'red')
+ax.plot(dataN[0], dataN[1], color = 'red', label = r'$c$')
 ax2 = ax.twinx()
-ax2.plot(dataN[0], dataN[3], color = 'red', ls = 'dashed')
+ax2.plot(dataN[0], dataN[3], color = 'red', ls = 'dashed', label = r'$p$')
 # Ax limits 
 xlim = [0,20]
 ylim = [0, 0.3]
@@ -493,7 +542,8 @@ ax.spines.right.set_visible(True)
 ax.set_ylabel(r'$c$', labelpad=-10)
 ax2.set_ylabel(r'$p$', labelpad=-10)
 ax.set_title('B', loc='left')
-
+ax.legend(loc='lower left')
+ax2.legend(loc='lower right')
 """
 Ax settings Simulation - Narrow Spike - Ct 95
 """
@@ -517,7 +567,7 @@ ax2.set_ylabel(r'$p$', labelpad=-10)
 ax.set_title('D', loc='left')
 
 """
-Ax settings Simulation - Broad Spike w/Plateau - Ct 95
+Ax settings Simulation - Wide Spike w/Plateau - Ct 95
 """
 ax = fig.add_subplot(spec[3,1])
 ax.plot(dataBr[0], dataBr[1], color = 'salmon')
@@ -561,7 +611,7 @@ ax2.set_ylabel(r'$p$', labelpad=-10)
 ax.set_title('F', loc='left')
 
 """
-Ax settings Simulation - Broad Spike - Ct 75
+Ax settings Simulation - Wide Spike - Ct 75
 """
 ax = fig.add_subplot(spec[5,1])
 ax.plot(dataB[0], dataB[1], color = 'orangered')

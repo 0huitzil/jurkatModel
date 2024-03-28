@@ -11,10 +11,10 @@ import pathlib as pth
 import pandas as pd
 auto_directory = "/home/huitzil/auto/07p/python" #Update with your own AUTO directory
 sys.path.append(auto_directory)
-from pathlib import Path
-parentPath = str(Path(os.getcwd()).parent)
-sys.path.append(parentPath)
-latexPath = Path(os.getcwd()).parent/'Latex'
+# from pathlib import Path
+# parentPath = str(Path(os.getcwd()).parent)
+# sys.path.append(parentPath)
+# latexPath = Path(os.getcwd()).parent/'Latex'
 from PyContFunctions import parChange
 from auto import *
 from auto import run, load, save, merge, relabel, cl, klb
@@ -117,6 +117,11 @@ for i in [2,3]: #I only care about two particular labels
             # marker='o', 
             # markersize=10,
         )
+        ax.plot(point['Vplc'],
+            max(point['c']),
+             marker = 'o', 
+            color =  'C2'
+            )
 # Ax limits 
 xlim = [0,0.15]
 ylim = [0.05, 0.25]
@@ -132,13 +137,13 @@ ax.set_title('A', loc='left')
 Ax settings - Data Simulation - Full Open Cell
 """
 ax = fig.add_subplot(spec[0, 1])
-ax.plot(dataF[0], dataF[5], color = 'C2')
+ax.plot(dataF[0], dataF[5], color = 'C2', label = r'$s$')
 ax2 = ax.twinx()
-ax2.plot(dataF[0], dataF[2], color = 'C2', ls = 'dashed')
+ax2.plot(dataF[0], dataF[2], color = 'C2', ls = 'dashed', label = r'$c_e$')
 # Ax limits 
 xlim = [0, 120]
-ylim = [0.5, 1.6]
-y2lim = [780, 820]
+ylim = [0.6, 1.7]
+y2lim = [790, 825]
 ax.set_xticks(xlim)
 ax.set_yticks(ylim)
 ax2.set_yticks(y2lim)
@@ -147,7 +152,8 @@ ax.set_ylabel(r'$s$', rotation='vertical', labelpad=-15, ma='center')
 ax2.set_ylabel(r'$c_e$', rotation='vertical', labelpad=-15, ma='center')
 ax.set_xlabel(r'Time (seconds)', labelpad=-10)
 ax.set_title('B', loc='left')
-
+ax.legend(loc='upper left')
+ax2.legend(loc='upper right')
 
 # fig.savefig(latexPath/'Fig4.pdf')
 fig.savefig('Figures/Fig4.pdf')

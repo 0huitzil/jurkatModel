@@ -12,9 +12,9 @@ import pandas as pd
 auto_directory = "/home/huitzil/auto/07p/python" #Update with your own AUTO directory
 sys.path.append(auto_directory)
 from pathlib import Path
-parentPath = str(Path(os.getcwd()).parent)
-sys.path.append(parentPath)
-latexPath = Path(os.getcwd()).parent/'Latex'
+# parentPath = str(Path(os.getcwd()).parent)
+# sys.path.append(parentPath)
+# latexPath = Path(os.getcwd()).parent/'Latex'
 
 from PyContFunctions import parChange
 from auto import *

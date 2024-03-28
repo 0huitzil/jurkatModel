@@ -11,15 +11,16 @@ import pathlib as pth
 import pandas as pd
 auto_directory = "/home/huitzil/auto/07p/python" #Update with your own AUTO directory
 sys.path.append(auto_directory)
-from pathlib import Path
-parentPath = str(Path(os.getcwd()).parent)
-sys.path.append(parentPath)
-latexPath = Path(os.getcwd()).parent/'Latex'
+# from pathlib import Path
+# parentPath = str(Path(os.getcwd()).parent)
+# sys.path.append(parentPath)
+# latexPath = Path(os.getcwd()).parent/'Latex'
 from PyContFunctions import parChange
 from auto import *
 from auto import run, load, save, merge, relabel, cl, klb
 from numpy import e, log, sqrt
 from myOptions import *
+
 from PyModels import parFullOpenCell, getSOCE
 matplotlib.rcParams.update(myRcParams())
 
@@ -383,6 +384,12 @@ for i in [6]: #I only care about two particular labels
             # marker='o', 
             # markersize=10,
         )
+        ax.plot(
+            point['s1'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C2'
+        )
 
 # Ax limits 
 xlim = [0, 1]
@@ -478,6 +485,12 @@ for i in [6,7]: #I only care about two particular labels
             # 'C2',
             # marker='o', 
             # markersize=10,
+        )
+        ax.plot(
+            point['Ts'],
+            max(point['c']), 
+            marker = 'o', 
+            color = 'C2'
         )
 
 
